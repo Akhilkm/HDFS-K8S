@@ -56,4 +56,4 @@ COPY ./scripts/run.sh /opt/hadoop/run.sh
 RUN chmod 600 /root/.ssh/id_rsa \
     && chmod +x run.sh
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["./run.sh"]
