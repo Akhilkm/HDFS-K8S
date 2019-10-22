@@ -22,6 +22,11 @@ ENV JAVA_ALPINE_VERSION 8.222.10-r0
 # Adding a default editor
 RUN apk add vim
 
+RUN apk add openssh \
+        && apk add openrc \
+        && rc-update add sshd \
+        && rc-status
+
 RUN set -x \
         && apk add --no-cache \
                 openjdk8="$JAVA_ALPINE_VERSION" \
