@@ -3,16 +3,10 @@ hdfs namenode -format
 hdfs --daemon start namenode
 service ssh start
 
-nameNodeStatus=$(jps | grep "NameNode")
-sshStatus=$(ps -ef | grep "/usr/sbin/sshd")
 while true
 do
-	if [[ $nameNodeStatus != *NameNode ]]; then 
-        echo "$(date): Namenode stopped";
-        exit
-    fi
-    if [[ $sshStatus != *sshd* ]]; then 
-        echo "$(date): sshd stopped";
+	if [[ -z $(jps | grep "NameNode") ]] || [[ -z $(ps -ef | grep "/usr/sbin/sshd") ]] ; then 
+        echo "$(date): Namenode/sshd stopped";
         exit
     fi
 done
