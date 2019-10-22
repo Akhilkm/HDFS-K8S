@@ -52,5 +52,6 @@ COPY ./config/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
 COPY ./config/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
 COPY ssh-keys/id_rsa /root/.ssh/id_rsa
 COPY ssh-keys/id_rsa.pub /root/.ssh/authorized_keys
+RUN chmod 600 /root/.ssh/id_rsa
 
 CMD ["/usr/sbin/sshd", "-D"]
