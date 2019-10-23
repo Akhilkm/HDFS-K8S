@@ -8,8 +8,6 @@ RUN apk update \
     && apk add --no-cache gnupg bash curl \
     && adduser -D hadoop
 
-USER hadoop
-
 ENV HADOOP_VERSION 3.2.1
 ENV HADOOP_HOME /home/hadoop/hadoop
 ENV HADOOP_HDFS_HOME /home/hadoop/hadoop
@@ -30,6 +28,9 @@ RUN cd ~ \
 
 COPY ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 COPY ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+RUN chown hadoop:hadoop -R $HADOOP_HOME
+
+USER hadoop
 
 RUN [ "hdfs", "namenode", "-format" ]
 
