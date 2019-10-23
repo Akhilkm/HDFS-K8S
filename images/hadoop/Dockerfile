@@ -31,8 +31,6 @@ RUN cd ~ \
 COPY ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 COPY ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
-RUN chown hadoop:hadoop $HADOOP_HOME/etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-
 RUN [ "hdfs", "namenode", "-format" ]
 
 WORKDIR /home/hadoop/hadoop
