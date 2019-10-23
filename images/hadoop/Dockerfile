@@ -16,7 +16,7 @@ ENV PATH ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin
 ENV HDFS_NAMENODE_OPTS "-XX:+UseParallelGC -Xmx4g"
 
 
-RUN cd ~ \
+RUN cd /home/hadoop \
     && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz.asc \
     && wget https://www.apache.org/dist/hadoop/common/KEYS \
     && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
