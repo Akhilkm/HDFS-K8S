@@ -31,7 +31,7 @@ COPY ./config/hdfs-site.xml HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
 WORKDIR /home/hadoop/hadoop
 
-CMD [ "hdfs", "namenode" ]
+CMD [ "hdfs namenode -format && hdfs namenode" ]
 
 
 
