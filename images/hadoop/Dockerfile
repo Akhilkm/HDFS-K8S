@@ -26,7 +26,12 @@ RUN cd ~ \
     && ln -s hadoop-$HADOOP_VERSION hadoop  \
     && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS 
 
+COPY ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+COPY ./config/hdfs-site.xml HADOOP_HOME/etc/hadoop/hdfs-site.xml
+
 WORKDIR /home/hadoop/hadoop
+
+CMD [ "hdfs", "namenode" ]
 
 
 
