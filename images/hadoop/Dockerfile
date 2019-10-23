@@ -17,6 +17,10 @@ RUN cd ~ \
     && gpg --import KEYS \
     && gpg --verify hadoop-3.2.1.tar.gz.asc hadoop-3.2.1.tar.gz \
     && tar -zxvf hadoop-3.2.1.tar.gz \
-    && ln -s hadoop hadoop-3.2.1 \
+    && ln -s hadoop-3.2.1 hadoop  \
     && rm -rf hadoop-3.2.1.tar.gz.asc hadoop-3.2.1.tar.gz KEYS 
+
+WORKDIR /home/hadoop/hadoop
+
+
 
