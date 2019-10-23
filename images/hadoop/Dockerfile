@@ -10,15 +10,21 @@ RUN apk update \
 
 USER hadoop
 
+ENV HADOOP_VERSION 3.2.1
+ENV HADOOP_HOME /home/hadoop/hadoop
+ENV HADOOP_HDFS_HOME /home/hadoop/hadoop
+ENV HADOOP_COMMON_HOME /home/hadoop/hadoop
+ENV PATH ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin
+
 RUN cd ~ \
-    && wget https://www.apache.org/dist/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz.asc \
+    && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz.asc \
     && wget https://www.apache.org/dist/hadoop/common/KEYS \
-    && wget https://www.apache.org/dist/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz \
+    && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
     && gpg --import KEYS \
-    && gpg --verify hadoop-3.2.1.tar.gz.asc hadoop-3.2.1.tar.gz \
-    && tar -zxvf hadoop-3.2.1.tar.gz \
-    && ln -s hadoop-3.2.1 hadoop  \
-    && rm -rf hadoop-3.2.1.tar.gz.asc hadoop-3.2.1.tar.gz KEYS 
+    && gpg --verify hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz \
+    && tar -zxf hadoop-$HADOOP_VERSION.tar.gz \
+    && ln -s hadoop-$HADOOP_VERSION hadoop  \
+    && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS 
 
 WORKDIR /home/hadoop/hadoop
 
