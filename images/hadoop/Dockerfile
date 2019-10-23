@@ -22,7 +22,7 @@ RUN cd ~ \
     && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
     && gpg --import KEYS \
     && gpg --verify hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz \
-    && tar -zxf hadoop-$HADOOP_VERSION.tar.gz \
+    && tar -zxvf hadoop-$HADOOP_VERSION.tar.gz \
     && ln -s hadoop-$HADOOP_VERSION hadoop  \
     && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS 
 
