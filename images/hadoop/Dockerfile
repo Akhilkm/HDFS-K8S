@@ -31,6 +31,10 @@ RUN cd ~ \
 ADD ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 ADD ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
+USER root
+RUN chown hadoop:hadoop $HADOOP_HOME/etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml 
+USER hadoop
+
 RUN [ "hdfs", "namenode", "-format" ]
 
 WORKDIR /home/hadoop/hadoop
