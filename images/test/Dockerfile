@@ -5,7 +5,7 @@ MAINTAINER DevOps <akhilu011@gmail.com>
 # Default to UTF-8 file.encoding
 
 RUN apk update \
-    && apk add --no-cache gnupg ca-certificates bash curl openjdk8\
+    && apk add --no-cache gnupg ca-certificates openrc su-exec util-linux bash curl openjdk8\
     && adduser -D hadoop
 
 USER hadoop
