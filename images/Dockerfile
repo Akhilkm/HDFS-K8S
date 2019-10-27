@@ -30,12 +30,12 @@ RUN cd ~ \
     && ln -s hadoop-$HADOOP_VERSION hadoop  \
     && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS 
 
-ADD ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
-ADD ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+# ADD ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+# ADD ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
-USER root
-RUN chown hadoop:hadoop $HADOOP_HOME/etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml 
-USER hadoop
+# USER root
+# RUN chown hadoop:hadoop $HADOOP_HOME/etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml 
+# USER hadoop
 
 RUN [ "hdfs", "namenode", "-format" ]
 
