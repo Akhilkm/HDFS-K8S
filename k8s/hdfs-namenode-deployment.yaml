@@ -5,7 +5,7 @@ metadata:
   labels:
     app: namenode
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: namenode
@@ -16,28 +16,29 @@ spec:
     spec:
       containers:
       - name: namenode
+        imagePullPolicy: Always
+        args:
+        - "-c"
+        - "cp /tmp/*-site.xml $HADOOP_HOME/etc/hadoop/ && hdfs namenode"
+        command: 
+        - "/bin/bash"
         image: akhilkm/hdfs:v1
         ports:
-        - containerPort: 80
+        - containerPort: 9000
+          name: hdfs
+        - containerPort: 9870
+          name: hdfs-ui
         volumeMounts:
         - name: core-site
-          mountPath: /opt/hadoop/etc/hadoop/core-site.xml
+          mountPath: /tmp/core-site.xml
           subPath: core-site.xml
         - name: hdfs-site
-          mountPath: /opt/hadoop/etc/hadoop/hdfs-site.xml
+          mountPath: /tmp/hdfs-site.xml
           subPath: hdfs-site.xml
-        - name: workers
-          mountPath: /opt/hadoop/etc/hadoop/workers
-          subPath: workers
-  volumes:
-    - name: core-site
-      configMap:
-        name: core-site
-  volumes:
-    - name: hdfs-site
-      configMap:
-        name: hdfs-site
-  volumes:
-    - name: workers
-      configMap:
-        name: workers
+      volumes:
+        - name: core-site
+          configMap:
+            name: core-site
+        - name: hdfs-site
+          configMap:
+            name: hdfs-site

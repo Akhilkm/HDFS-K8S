@@ -5,7 +5,7 @@ MAINTAINER DevOps <akhilu011@gmail.com>
 # Default to UTF-8 file.encoding
 
 RUN apk update \
-    && apk add --no-cache --update gnupg ca-certificates su-exec util-linux bash wget curl openjdk8 \
+    && apk add --no-cache --update gnupg ca-certificates su-exec util-linux bash wget curl openjdk8 vim \
     && adduser -D hadoop
 
 USER hadoop
@@ -17,8 +17,6 @@ ENV HADOOP_HOME /home/hadoop/hadoop
 ENV HADOOP_HDFS_HOME /home/hadoop/hadoop
 ENV HADOOP_COMMON_HOME /home/hadoop/hadoop
 ENV PATH ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin
-ENV HADOOP_OPTS "-Ddfs.name.dir=/home/hadoop/hadoop/data/nameNode -Ddfs.data.dir=/home/hadoop/hadoop/data/dataNode -Dfs.default.name=hdfs://namenode:9000"
-
 
 RUN cd ~ \
     && wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz.asc \
@@ -28,14 +26,9 @@ RUN cd ~ \
     && gpg --verify hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz \
     && tar -zxf hadoop-$HADOOP_VERSION.tar.gz \
     && ln -s hadoop-$HADOOP_VERSION hadoop  \
-    && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS 
+    && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS \
+    && mkdir $HADOOP_HOME/data/nameNode $HADOOP_HOME/data/dataNode
 
-# ADD ./config/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
-# ADD ./config/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-
-# USER root
-# RUN chown hadoop:hadoop $HADOOP_HOME/etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml 
-# USER hadoop
 
 RUN [ "hdfs", "namenode", "-format" ]
 
