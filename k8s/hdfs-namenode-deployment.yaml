@@ -14,12 +14,19 @@ spec:
       labels:
         app: namenode
     spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /home/hadoop/hadoop/data/nameNode"]
+        volumeMounts:
+        - name: namenode-storage
+          mountPath: /home/hadoop/hadoop/data/nameNode
       containers:
       - name: namenode
         imagePullPolicy: Always
         args:
         - "-c"
-        - "cp /tmp/*-site.xml $HADOOP_HOME/etc/hadoop/ && hdfs namenode"
+        - "cp /tmp/*-site.xml $HADOOP_HOME/etc/hadoop/  && hdfs namenode -format && hdfs namenode"
         command: 
         - "/bin/bash"
         image: akhilkm/hdfs:v1
@@ -35,6 +42,8 @@ spec:
         - name: hdfs-site
           mountPath: /tmp/hdfs-site.xml
           subPath: hdfs-site.xml
+        - mountPath: /home/hadoop/hadoop/data/nameNode
+          name: namenode-storage
       volumes:
         - name: core-site
           configMap:
@@ -42,3 +51,6 @@ spec:
         - name: hdfs-site
           configMap:
             name: hdfs-site
+        - name: namenode-storage
+          persistentVolumeClaim:
+            claimName: namenode-storage-vol

@@ -29,9 +29,6 @@ RUN cd ~ \
     && rm -rf hadoop-$HADOOP_VERSION.tar.gz.asc hadoop-$HADOOP_VERSION.tar.gz KEYS \
     && mkdir -p $HADOOP_HOME/data/nameNode $HADOOP_HOME/data/dataNode
 
-
-RUN [ "hdfs", "namenode", "-format" ]
-
 WORKDIR /home/hadoop/hadoop
 
 CMD [ "hdfs", "namenode" ]
