@@ -1,8 +1,7 @@
 # HDFS-K8S
 [HDFS](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html) cluster running in [kubernetes](https://kubernetes.io/)
 ### Note
-
-### What is HDFS
+This repository is created specifically for Azure. Required changes for using with other cloud providers.
 
 ### Folder structure
 * configs
